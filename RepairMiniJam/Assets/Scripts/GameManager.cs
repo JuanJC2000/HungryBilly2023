@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         if (Instance == null)
         {
             Instance = this;
