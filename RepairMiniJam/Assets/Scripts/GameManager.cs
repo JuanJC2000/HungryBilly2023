@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; } // Using static instane to store a reference to this game manager
+    public static GameManager Instance { get; private set; } // Using static instance to store a reference to this game manager
 
-    public GameOverScreen GameOverScreen;
-    public GameWonScreen GameWonScreen;
+    public GameOverScreen GameOverScreen; //Reference Game over screen
+    public GameWonScreen GameWonScreen; //Reference Game won screen 
 
-    public UnityEvent OnWin;
+    public UnityEvent OnWin;  //Using Unity events to reference their conditionals
     public UnityEvent OnLose;
 
     /// <summary>
@@ -55,16 +55,17 @@ public class GameManager : MonoBehaviour
         GameOverScreen.Setup();
         OnLose?.Invoke();
         Time.timeScale = 0f;
-       // ReloadCurrentScene();
+       
     }
-
+     /*
     public void WinGameTest() //Invoke event
     {
         Debug.Log("You have won!");
         
         OnWin?.Invoke();
     }
-
+  */
+     //function which reloads the scene using scenemanagent namespace
     public void ReloadCurrentScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

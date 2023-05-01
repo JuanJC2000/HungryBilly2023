@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
 
+    //Conditonals for rigidbody 
     private Rigidbody rb;
     private bool isJumping = false;
     private bool isGrounded = true;
@@ -35,10 +36,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
        
-        
-        horizontalInput = Input.GetAxis("Horizontal");
+        //Get Inputs
+        horizontalInput = Input.GetAxis("Horizontal"); 
         verticalInput = Input.GetAxis("Vertical");
 
+        //IsGrounded allows us to change between the methods of control we want to give over the player when they do jump. 
+        //I wanted to allow the player to only rotate on their axis, and to carry their momentum forward as they jump.
+        //This was not working, however the infrastucure for the code is reusable and intend to build on it. For now, we just call both movement types regardless if we are grounded or not.
         if (isGrounded)
         {
             
@@ -56,7 +60,9 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
             transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+
+        //Adds force to jump, set our conditonals to false
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) 
         {
             Debug.Log("jumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -65,32 +71,38 @@ public class PlayerController : MonoBehaviour
     
     }
 
+    //On FixedUpdate to reduce stress 
     private void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundDistance, groundMask);
 
     }
 
+    //We use onCollision Enter to keep track of our 'Health'. Whenever we collide with something were not supposed, we invoke the function either Lose or Win. Inside GameManager, we set the logic for these functions.
     private void OnCollisionEnter(Collision collision)
     {
+
+        //Invoke LoseGame 
         if (collision.gameObject.CompareTag("DeathGuard"))
         {
             GameManager.Instance.LoseGame();
         }
 
+        //Set conditionals
         else if (collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
             isGrounded = true;
             
         }
-
+        //Invoke LoseGame
         if (collision.gameObject.CompareTag("Death"))
         {
             GameManager.Instance.LoseGame();
         }
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("WayPoint"))
@@ -98,5 +110,5 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.WinGameTest();
         }
     }
-
+    */
 }

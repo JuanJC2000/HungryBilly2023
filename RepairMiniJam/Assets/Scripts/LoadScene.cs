@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadScene : MonoBehaviour
 {
+    //Loads any given scene with string
     public void LoadSceneUsingName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
+    //Reloads any given scene with string
     public void ReloadCurrentScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
