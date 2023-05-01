@@ -18,6 +18,6 @@ https://assetstore.unity.com/packages/3d/environments/roadways/simple-roads-2123
 
 The car is from Unity Learns free assets for prototype testing. 
 
-These are the 2 only assets used. All other functionaly is custom made.
+These are the 2 only assets used. All other functionality is custom made.
 
 Total time in project from commits = 8 hours
