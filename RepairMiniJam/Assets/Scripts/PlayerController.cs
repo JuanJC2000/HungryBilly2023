@@ -10,14 +10,12 @@ public class PlayerController : MonoBehaviour
     private float speed = 20f;
     private float turnSpeed = 45f;
     public float jumpForce = 500f;
-    //public int maxJumps = 1;
     public Transform groundCheckTransform;
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
 
     private Rigidbody rb;
     private bool isJumping = false;
-    //private int jumpsRemaining;
     private bool isGrounded = true;
 
     //Axis data reference saves as variable
@@ -40,67 +38,37 @@ public class PlayerController : MonoBehaviour
         
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
-      
+
+        if (isGrounded)
+        {
+            
+
 
             //moves the car  forward based on vertical input
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
 
 
             // rotates the car on its y axis based on horizontal input
-        transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
-
+            transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
+        }
+        else
+        {
+            transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Debug.Log("jumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
-        
-
-
-
-
-       /* isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundDistance, groundMask);
-        if(Input.GetKeyDown(KeyCode.Space) && !isJumping)
-       {
-            Debug.Log("jumping");
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isJumping = true;
-          
-        }
-
-        if (isGrounded && !isJumping)
-        {
-            isJumping = false;
-        }
-       */
-
-        /*
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-        //moves the car  forward based on vertical input
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
-
-
-        // rotates the car on its y axis based on horizontal input
-        transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
-        */
-        // Make car go forwards
-       // if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-       // {
-       //     Debug.Log("jumping");
-       //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-       //     isGrounded = false;
-       // }
+    
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundDistance, groundMask);
 
-       
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -122,7 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("WayPoint"))
         {
-            GameManager.Instance.WinGame();
+            GameManager.Instance.WinGameTest();
         }
     }
 }
