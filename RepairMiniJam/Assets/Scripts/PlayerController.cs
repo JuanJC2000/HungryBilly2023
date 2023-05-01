@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             
         }
+
+        if (collision.gameObject.CompareTag("Death"))
+        {
+            GameManager.Instance.LoseGame();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,4 +98,5 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.WinGameTest();
         }
     }
+
 }

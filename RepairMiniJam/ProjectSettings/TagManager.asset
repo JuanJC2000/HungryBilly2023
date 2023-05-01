@@ -7,6 +7,7 @@ TagManager:
   - DeathGuard
   - WayPoint
   - Ground
+  - Death
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Death
   - 
   - 
   - 
