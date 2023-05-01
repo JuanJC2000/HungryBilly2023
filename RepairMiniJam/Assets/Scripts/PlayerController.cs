@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class PlayerController : MonoBehaviour
@@ -34,5 +35,21 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
 
         // Make car go forwards
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("DeathGuard"))
+        {
+            GameManager.Instance.LoseGame();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("WayPoint"))
+        {
+            GameManager.Instance.WinGame();
+        }
     }
 }
