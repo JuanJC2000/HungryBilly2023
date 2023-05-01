@@ -28,10 +28,10 @@ If you are confused about the waypoint system, don't worry, so am I. What
 We wanted was a gameplay loop of start -> get to checkpoint -> new checkpoint intansiates. 
 However I couldn't get that to work so called our win function when any trigger with waypoint tag would enter it.
 
-The waypoints are represented by a waypoinspawner under Hierachy -> GameManager -> waypoinspawner. In there you can find the relevsnt scripts as well.
+The waypoints are represented by a waypoinspawner under Hierachy -> GameManager -> waypoinspawner. In there you can find the relevant scripts as well.
 
 
-A fix for this is to make another instantiate with s conditional if the trigger does indeed exist. We would then disable our current index gameobject and go on from there.
+A fix for this is to make another instantiate with a conditional if the trigger does indeed exist. We would then disable our current index gameobject and go on from there.
 
 However think I got inside my head and couldn't pull it off at the end.
 
