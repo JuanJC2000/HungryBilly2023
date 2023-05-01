@@ -6,12 +6,13 @@ public class FollowPlayer : MonoBehaviour
 {
 
     public GameObject player;
+    public float smoothing =5f;
 
-    private Vector3 offset = new Vector3(0, 5, -7); // set new private vector 3 offset to make code easily editable for future offset of camera if need be
+    private Vector3 offset;// set new private vector 3 offset to make code easily editable for future offset of camera if need be
     
     void Start()
     {
-        
+        offset = transform.position - player.transform.position;
     }
 
     //using late update for smoothness of camera
@@ -19,8 +20,9 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         //offset the camera behind the player by adding to the players position
-     
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.position = player.transform.position + offset;
+        Vector3 targetCamPos = player.transform.position + offset;
+        
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
